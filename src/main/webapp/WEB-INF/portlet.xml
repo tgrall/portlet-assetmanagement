@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<portlet-app xmlns="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd http://java.sun.com/xml/ns/portlet/portlet-app_2_0.xsd" version="1.0">
+
+	<portlet>
+		<description xml:lang="EN">AssetManagementPortlet</description>
+		<portlet-name>AssetManagementPortlet</portlet-name>
+		<portlet-class>org.exoplatform.forge.portlets.assetsmanagement.AssetManagementPortlet</portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+			<portlet-mode>edit</portlet-mode>
+			<portlet-mode>help</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Javascript Extensions</title>
+			<keywords>asset,javascript,library,extensions</keywords>
+		</portlet-info>
+
+		<portlet-preferences>
+			<preference>
+				<name>javascriptlibraries</name>
+				<value>list</value>
+				<read-only>false</read-only>
+			</preference>
+                </portlet-preferences>
+
+
+        </portlet>
+	
+
+
+	<portlet>
+		<description xml:lang="EN">Light Box Tester</description>
+		<portlet-name>Light Box Tester</portlet-name>
+		<portlet-class>org.exoplatform.forge.portlets.jquery.LightBoxTesterPortlet</portlet-class>
+		<supports>
+			<mime-type>text/html</mime-type>
+			<portlet-mode>view</portlet-mode>
+		</supports>
+		<portlet-info>
+			<title>Light Box Tester</title>
+			<keywords>jquery, test</keywords>
+		</portlet-info>
+        </portlet>
+
+
+
+</portlet-app>

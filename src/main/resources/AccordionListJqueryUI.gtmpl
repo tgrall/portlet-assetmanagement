@@ -1,0 +1,78 @@
+<%
+    import javax.jcr.Node;
+    import org.exoplatform.wcm.webui.paginator.UICustomizeablePaginator;
+    import org.exoplatform.wcm.webui.clv.UICLVPortlet;
+    import org.exoplatform.wcm.webui.Utils;
+    import org.exoplatform.services.wcm.core.NodeLocation;
+
+    // portlet preferences
+    // global settings for the CLV instance
+    def header = uicomponent.getHeader();
+    def rssLink = uicomponent.getRssLink();
+    def isShowRssLink = uicomponent.isShowRssLink();
+    def isShowHeader = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_HEADER) && header != null && header.trim().length() != 0;
+    def isShowTitle = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_TITLE);
+    def isShowDate = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_DATE_CREATED);
+    def isShowLink = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_LINK);
+    def isShowReadmore = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_READMORE);           
+    def rcontext = _ctx.getRequestContext() ;
+    String portletId = Utils.getRealPortletId(rcontext);
+   
+%>
+
+<%
+    if (uicomponent.getUIPageIterator().getAvailable() == 0) {
+%>
+       <span><%= _ctx.appRes(uicomponent.getParent().getMessageKey()) %></span>
+<%
+    } else {
+%>
+
+    <div id="accordionCLV-$portletId">
+<%
+      def currentPageData = uicomponent.getCurrentPageData();
+          for (viewNode in currentPageData) {
+                if(!Utils.isViewable(viewNode)) continue;                
+                def itemLink = uicomponent.getURL(viewNode);      
+                def itemDateCreated = uicomponent.getCreatedDate(viewNode);
+                def itemOwner = uicomponent.getAuthor(viewNode);      
+                def imgSrc = uicomponent.getIllustrativeImage(viewNode);
+                def isShowImage = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_ILLUSTRATION) && imgSrc != null;
+                def itemName = viewNode.getName();
+                def itemTitle = uicomponent.getTitle(viewNode);
+                if (itemTitle != null && itemTitle.trim().length() != 0) {
+                      itemName = itemTitle;
+                }
+                def itemSummary = uicomponent.getSummary(viewNode);
+                def isShowSummary = uicomponent.isShowField(UICLVPortlet.PREFERENCE_SHOW_SUMMARY) && itemSummary != null;
+%>
+
+      <div>
+        <%=uicomponent.addQuickEditDiv("Column1", viewNode)%>
+        <h3><a href="#">$itemName</a></h3>
+        <div style="height:65px">
+          <%  if (isShowImage & imgSrc!=null) { %>
+          <a class="Image" title="$itemName"><img alt="$itemName" src="$imgSrc" align="left" /></a>
+          <% } %>
+          $itemSummary
+        </div>
+        </div>
+      </div>
+      
+      
+<%                
+          }
+%>
+</div>
+       <script type="text/javascript">
+      <%= "\$" %>("#accordionCLV-$portletId").accordion({ header: "h3" });
+    </script>
+      
+      
+      <%
+   }             
+%>
+    
+    
+
+
